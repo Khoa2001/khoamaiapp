@@ -1,7 +1,7 @@
 version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
 options: "33af2473c6140ae8a2cc904a70a5e2ba323d2a6f7b89b4d20d9614258570f1b3"
-build_start_time: [1688626597, 55131912]
-build_end_time: [1688626598, 280339956]
+build_start_time: [1688632737, 860136985]
+build_end_time: [1688632744, 522959947]
 inputs:
   "/Users/maidangkhoa/.pub-cache/hosted/pub.dev/audioplayers-0.20.1/macos/Classes/Logger.swift": [1688541808, 851149797]
   "/Users/maidangkhoa/.pub-cache/hosted/pub.dev/audioplayers-0.20.1/macos/Classes/NotificationsHandler.swift": [1688541808, 851653575]

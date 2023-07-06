@@ -1,8 +1,8 @@
 version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
 options: "1fb38261719246ae922a5150271b79b13128d3905587550582a9721c847ace0f"
-build_start_time: [1688631944, 880228042]
-build_end_time: [1688631946, 250793933]
+build_start_time: [1688632752, 895936965]
+build_end_time: [1688632758, 694028854]
 inputs:
-  "/Users/maidangkhoa/dev/projects/vananhapp/macos/Flutter/GeneratedPluginRegistrant.swift": [1688631939, 464576721]
+  "/Users/maidangkhoa/dev/projects/vananhapp/macos/Flutter/GeneratedPluginRegistrant.swift": [1688632734, 24081707]
   "/Users/maidangkhoa/dev/projects/vananhapp/macos/Runner/AppDelegate.swift": [1687667477, 993534564]
   "/Users/maidangkhoa/dev/projects/vananhapp/macos/Runner/MainFlutterWindow.swift": [1687667478, 630047082]
