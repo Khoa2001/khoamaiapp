@@ -1,0 +1,10 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "498aef2e4d6611824974b2bdb7313610097d01cf31a1d12acd0a806527a8c808"
+build_start_time: [1688611722, 862807989]
+build_end_time: [1688611722, 936058998]
+inputs:
+  "/Users/maidangkhoa/.pub-cache/hosted/pub.dev/audioplayers-0.20.1/macos/Classes/Logger.swift": [1688541808, 851149797]
+  "/Users/maidangkhoa/.pub-cache/hosted/pub.dev/audioplayers-0.20.1/macos/Classes/NotificationsHandler.swift": [1688541808, 851653575]
+  "/Users/maidangkhoa/.pub-cache/hosted/pub.dev/audioplayers-0.20.1/macos/Classes/SwiftAudioplayersPlugin.swift": [1688541808, 850974082]
+  "/Users/maidangkhoa/.pub-cache/hosted/pub.dev/audioplayers-0.20.1/macos/Classes/Utils.swift": [1688541808, 851876258]
+  "/Users/maidangkhoa/.pub-cache/hosted/pub.dev/audioplayers-0.20.1/macos/Classes/WrappedMediaPlayer.swift": [1688541808, 850532531]
