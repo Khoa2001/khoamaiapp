@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/vananhapp.iml" filepath="$PROJECT_DIR$/.idea/vananhapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/vananhapp_android.iml" filepath="$PROJECT_DIR$/android/vananhapp_android.iml" />
     </modules>
   </component>
 </project>

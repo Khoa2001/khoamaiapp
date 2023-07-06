@@ -9,41 +9,43 @@ class AudioPlayerScreen extends StatelessWidget {
   // @override
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Obx(
-        () => Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _buildCurrentlyPlaying(),
-              Center(
-                child: audioPlayerController.isPlaying.value
-                    ? const AnimatedRotatingWidget(
-                        duration: Duration(seconds: 100),
-                        child: CircleAvatar(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: Obx(
+          () => Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildCurrentlyPlaying(),
+                Center(
+                  child: audioPlayerController.isPlaying.value
+                      ? const AnimatedRotatingWidget(
+                          duration: Duration(seconds: 100),
+                          child: CircleAvatar(
+                            radius: 100,
+                            backgroundImage: AssetImage(
+                              'assets/img/cat.png',
+                            ),
+                          ),
+                        )
+                      : const CircleAvatar(
                           radius: 100,
                           backgroundImage: AssetImage(
                             'assets/img/cat.png',
                           ),
                         ),
-                      )
-                    : const CircleAvatar(
-                        radius: 100,
-                        backgroundImage: AssetImage(
-                          'assets/img/cat.png',
-                        ),
-                      ),
-              ),
-              const SizedBox(height: 20),
-              _buildSlider(),
-              _buildLabel(),
-              const SizedBox(height: 20),
-              _buildPlayButton(),
-              const Spacer(),
-              _buildPickFileButton()
-            ],
+                ),
+                const SizedBox(height: 20),
+                _buildSlider(),
+                _buildLabel(),
+                const SizedBox(height: 20),
+                _buildPlayButton(),
+                const Spacer(),
+                _buildPickFileButton()
+              ],
+            ),
           ),
         ),
       ),
@@ -57,14 +59,16 @@ class AudioPlayerScreen extends StatelessWidget {
         InkWell(
           onTap: () {
             audioPlayerController.currentSpeed.value -= 0.1;
-            if (audioPlayerController.currentSpeed.value.isNegative) {
-              audioPlayerController.currentSpeed.value = 2.0;
+            if (audioPlayerController.currentSpeed.value < 1) {
+              audioPlayerController.currentSpeed.value = 3.0;
             }
             audioPlayerController.audioPlayer
                 .setPlaybackRate(audioPlayerController.currentSpeed.value);
-            audioPlayerController.isPlaying.value = true;
+            if (audioPlayerController.mediaFile != null) {
+              audioPlayerController.isPlaying.value = true;
+            }
           },
-          child: const Icon(Icons.arrow_back_ios),
+          child: const Icon(Icons.arrow_back_ios, size: 40,),
         ),
         InkWell(
           onTap: () async {
@@ -111,9 +115,11 @@ class AudioPlayerScreen extends StatelessWidget {
             }
             audioPlayerController.audioPlayer
                 .setPlaybackRate(audioPlayerController.currentSpeed.value);
-            audioPlayerController.isPlaying.value = true;
+            if (audioPlayerController.mediaFile != null) {
+              audioPlayerController.isPlaying.value = true;
+            }
           },
-          child: const Icon(Icons.arrow_forward_ios),
+          child: const Icon(Icons.arrow_forward_ios, size: 40,),
         ),
       ],
     );

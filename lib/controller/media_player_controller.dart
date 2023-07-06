@@ -36,7 +36,10 @@ class AudioPlayerController extends GetxController {
   Future<void> setAudio() async {
     audioPlayer.setReleaseMode(ReleaseMode.LOOP);
 
-    final _temp = await FilePicker.platform.pickFiles();
+    final _temp = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['mp3'],
+    );
 
     if (_temp != null){
       mediaFile = _temp;
