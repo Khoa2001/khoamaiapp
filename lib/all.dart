@@ -3,7 +3,6 @@ export 'package:flutter/material.dart';
 export 'package:audioplayers/audioplayers.dart';
 export 'package:file_picker/file_picker.dart';
 export 'package:get/get.dart';
-export 'package:bot_toast/bot_toast.dart';
 export 'package:shared_preferences/shared_preferences.dart';
 export 'package:animated_rotating_widget/animated_rotating_widget.dart';
 

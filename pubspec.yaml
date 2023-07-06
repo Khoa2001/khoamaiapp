@@ -44,7 +44,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  bot_toast: ^4.0.4
   shared_preferences: ^2.2.0
   marquee: ^2.2.3
   animated_rotating_widget: ^0.0.2

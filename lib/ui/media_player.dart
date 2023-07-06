@@ -9,41 +9,19 @@ class AudioPlayerScreen extends StatelessWidget {
   // @override
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Obx(
-          () => Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Obx(
+            () => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildCurrentlyPlaying(),
-                Center(
-                  child: audioPlayerController.isPlaying.value
-                      ? const AnimatedRotatingWidget(
-                          duration: Duration(seconds: 100),
-                          child: CircleAvatar(
-                            radius: 100,
-                            backgroundImage: AssetImage(
-                              'assets/img/cat.png',
-                            ),
-                          ),
-                        )
-                      : const CircleAvatar(
-                          radius: 100,
-                          backgroundImage: AssetImage(
-                            'assets/img/cat.png',
-                          ),
-                        ),
-                ),
-                const SizedBox(height: 20),
+                _buildMenu(),
                 _buildSlider(),
-                _buildLabel(),
-                const SizedBox(height: 20),
-                _buildPlayButton(),
                 const Spacer(),
-                _buildPickFileButton()
+                _buildLabel(),
               ],
             ),
           ),
@@ -52,31 +30,55 @@ class AudioPlayerScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildPlayButton() {
+  Widget _buildMenu() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         InkWell(
           onTap: () {
-            audioPlayerController.currentSpeed.value -= 0.1;
-            if (audioPlayerController.currentSpeed.value < 1) {
-              audioPlayerController.currentSpeed.value = 3.0;
-            }
-            audioPlayerController.audioPlayer
-                .setPlaybackRate(audioPlayerController.currentSpeed.value);
-            if (audioPlayerController.mediaFile != null) {
-              audioPlayerController.isPlaying.value = true;
-            }
+            audioPlayerController.setAudio();
           },
-          child: const Icon(Icons.arrow_back_ios, size: 40,),
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+            child: Center(
+              child: Text(
+                'Choose MP3 file'.tr,
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
         ),
+        const SizedBox(width: 5),
+        InkWell(
+          onTap: () {
+            audioPlayerController.resetAll();
+          },
+          child: Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.red,
+            ),
+            child: Center(
+              child: Text(
+                'X'.tr,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        const Spacer(),
         InkWell(
           onTap: () async {
             if (audioPlayerController.mediaFile == null) {
-              BotToast.showText(
-                text: "You haven't pick a file yet!".tr,
-                duration: const Duration(seconds: 1),
-              );
               return;
             }
             if (audioPlayerController.isPlaying.value) {
@@ -85,33 +87,33 @@ class AudioPlayerScreen extends StatelessWidget {
               await audioPlayerController.audioPlayer.resume();
             }
           },
-          child: Card(
-            elevation: 8,
-            color: Colors.deepPurple,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+          child: Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: Colors.white,
             ),
-            child: SizedBox(
-              width: 60,
-              height: 60,
-              // decoration: BoxDecoration(
-              //     color: Colors.deepPurple,
-              //     borderRadius: BorderRadius.circular(8)),
+            child: Center(
               child: Icon(
                 audioPlayerController.isPlaying.value
                     ? Icons.pause
                     : Icons.play_arrow,
+                color: Colors.black,
                 size: 30,
-                color: Colors.white,
               ),
             ),
           ),
         ),
+        const SizedBox(width: 5),
         InkWell(
           onTap: () {
             audioPlayerController.currentSpeed.value += 0.1;
-            if (audioPlayerController.currentSpeed.value > 3) {
+            if (audioPlayerController.currentSpeed.value >= 3) {
               audioPlayerController.currentSpeed.value = 1.0;
+            }
+            if (audioPlayerController.mediaFile == null) {
+              return;
             }
             audioPlayerController.audioPlayer
                 .setPlaybackRate(audioPlayerController.currentSpeed.value);
@@ -119,150 +121,57 @@ class AudioPlayerScreen extends StatelessWidget {
               audioPlayerController.isPlaying.value = true;
             }
           },
-          child: const Icon(Icons.arrow_forward_ios, size: 40,),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPickFileButton() {
-    return Row(
-      children: [
-        Flexible(
-          flex: 2,
-          child: InkWell(
-            onTap: () {
-              audioPlayerController.setAudio();
-            },
-            child: Card(
-              elevation: 8,
-              color: Colors.deepPurple,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: SizedBox(
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.circular(8),
-                //   color: Colors.deepPurple,
-                // ),
-                height: 50,
-                child: Center(
-                  child: Text(
-                    'Choose MP3 file'.tr,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 5),
-        Flexible(
-          flex: 1,
-          child: InkWell(
-            onTap: () => audioPlayerController.reset(),
-            child: Card(
-              elevation: 8,
-              color: Colors.red[700],
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: SizedBox(
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.circular(8),
-                //   color: Colors.red[700],
-                // ),
-                height: 50,
-                child: Center(
-                  child: Text(
-                    'Reset'.tr,
-                    style: const TextStyle(color: Colors.white),
-                  ),
+          child: Container(
+            width: 30,
+            height: 30,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4), color: Colors.white),
+            child: Center(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  'x${audioPlayerController.currentSpeed.value.toStringAsFixed(1)}',
                 ),
               ),
             ),
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildCurrentlyPlaying() {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Currently playing: '.tr,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w700, fontSize: 16),
-                ),
-                const SizedBox(height: 8),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      Text(audioPlayerController.playingFile.toString()),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Speed: '.tr,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-              ),
-              SizedBox(
-                width: 25,
-                child: Center(
-                  child: Text(
-                    audioPlayerController.currentSpeed.toStringAsFixed(1),
-                    style: const TextStyle(
-                        fontWeight: FontWeight.w400, fontSize: 16),
-                  ),
-                ),
-              ),
-            ],
-          )
-        ],
-      ),
     );
   }
 
   Widget _buildLabel() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(audioPlayerController.pos.toString()),
-          Text(audioPlayerController.dur.toString()),
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          audioPlayerController.pos.toString(),
+          style: const TextStyle(color: Colors.white),
+        ),
+        Text(
+          audioPlayerController.dur.toString(),
+          style: const TextStyle(color: Colors.white),
+        ),
+      ],
     );
   }
 
   Widget _buildSlider() {
     return SliderTheme(
       data: const SliderThemeData(
-          trackHeight: 5, thumbShape: RoundSliderThumbShape()),
+        trackHeight: 5,
+        thumbShape: RoundSliderThumbShape(),
+      ),
       child: Slider(
-        activeColor: Colors.deepPurple,
-        inactiveColor: Colors.deepPurple[100],
+        activeColor: Colors.white,
+        inactiveColor: Colors.grey[500],
         min: 0,
         max: audioPlayerController.duration.value,
         value: audioPlayerController.position.value,
         onChanged: (value) async {
+          if (audioPlayerController.mediaFile == null) {
+            return;
+          }
           final position = Duration(seconds: value.toInt());
           await audioPlayerController.audioPlayer.seek(position);
           await audioPlayerController.audioPlayer.resume();

@@ -11,20 +11,6 @@ class AudioPlayerController extends GetxController {
 
   FilePickerResult? mediaFile;
 
-  RxList<String> list = <String>[
-    '1.0',
-    '1.1',
-    '1.2',
-    '1.3',
-    '1.4',
-    '1.5',
-    '1.6',
-    '1.7',
-    '1.8',
-    '1.9',
-    '2.0'
-  ].obs;
-
   @override
   void onInit() {
     listener();
@@ -41,7 +27,7 @@ class AudioPlayerController extends GetxController {
       allowedExtensions: ['mp3'],
     );
 
-    if (_temp != null){
+    if (_temp != null) {
       mediaFile = _temp;
     }
 
@@ -54,16 +40,20 @@ class AudioPlayerController extends GetxController {
   }
 
   Future<void> resume() async {
-    if (mediaFile != null) await audioPlayer.resume();
+    if (mediaFile != null) {
+      await audioPlayer.resume();
+    }
   }
 
-  void reset() {
+  void resetAll() async {
     mediaFile = null;
-    playingFile.value = '';
-    currentSpeed.value = 1.0;
+    await resetSpeed();
     audioPlayer.stop();
-    dur.value = '';
-    pos.value = '';
+  }
+
+  Future<void> resetSpeed() async {
+    currentSpeed.value = 1.0;
+    await audioPlayer.setPlaybackRate(currentSpeed.value);
   }
 
   void listener() {
